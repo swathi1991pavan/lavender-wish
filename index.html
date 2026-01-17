@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Yellowtail&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="images/bg3.webp">
+
+<title>Happy Birthday</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    height: 100vh;
+
+    /* 🎂 Birthday Template Background */
+    background: url("images/bg3.webp") no-repeat center center fixed;
+    background-size: cover;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: #0b2c4d;
+    text-align: center;
+}
+
+/* Light overlay for readability */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255,0.2);
+    z-index: 0;
+}
+
+.container {
+    z-index: 2;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 2.8rem;
+    color: #1c4fa3;
+}
+
+.happy {
+    font-size: 2rem;
+    letter-spacing: 8px;       /* spacing like the image */
+    color: #2f3a6f;
+    font-weight: 400;          /* thin */
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 3px rgba(0,0,0,0.15);
+}
+
+.birthday1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 5rem;           /* bigger and bold */
+    color: #2f3a6f;
+    font-weight: 600;
+    line-height: 1;
+    margin: 0;
+    text-shadow: 
+        2px 4px 6px rgba(0,0,0,0.2); /* subtle shadow for depth */
+}
+ .birthday {
+    /* Step 1: Use a 'bouncy' brush script */
+    font-family: 'Dancing Script', cursive; 
+    font-size: 6rem;
+    color:#2f3a6f;         /* Dark Navy blue */
+    font-weight: 700;       /* Keep it bold for the 'marker' look */
+    line-height: 1.1;
+    letter-spacing: -1px;   /* Tighten letters so they connect better */
+    
+
+    /* Step 2: Create the layered shadow effect */
+    /* This creates a sharp, non-blurry duplicate underneath */
+    text-shadow: 
+        2px 2px 0px #ffffff,    /* Optional: tiny white outline to separate layers */
+        5px 5px 0px #7b86b8,    /* The main light-blue shadow layer */
+        8px 8px 12px rgba(0,0,0,0.1); /* Very soft glow at the bottom */
+}
+
+.name {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+     margin-top: 25px; 
+
+    color: #2f3a6f;        /* soft indigo like image */
+    font-weight: 600;     /* NOT bold */
+
+    letter-spacing: 0.5px;
+
+    text-shadow: 
+        0 2px 3px rgba(47, 58, 111, 0.25); /* very soft shadow */
+}
+/* Photo style */
+#customerPhoto {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    margin-top: 20px;
+    display: none;
+    object-fit: cover;
+    border: 4px solid #1c4fa3;
+    background: white;
+}
+
+/* Confetti */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Music button */
+.music-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(28, 79, 163, 0.85);
+    padding: 10px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    user-select: none;
+    color: white;
+    z-index: 3;
+    font-size: 0.95rem;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="container">
+   /* <div class="happy">HAPPY</div>
+
+    <div class="birthday">Birthday</div>
+
+    <div class="name" id="nameText">Your Name</div> */
+
+    <img id="customerPhoto" alt="Photo">
+    
+</div>
+
+<div class="music-btn" onclick="toggleMusic()">🎵 Music</div>
+
+<audio id="bgMusic" loop>
+    <source src="audio/happy-birthday-1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const nameText = document.getElementById("nameText");
+const music = document.getElementById("bgMusic");
+const img = document.getElementById("customerPhoto");
+
+/* 🎉 Confetti Setup */
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let confetti = [];
+
+
+
+/* 🎵 Music Toggle */
+function toggleMusic() {
+    if (music.paused) {
+        music.play();
+        document.querySelector(".music-btn").innerText = "⏸ Music";
+    } else {
+        music.pause();
+        document.querySelector(".music-btn").innerText = "🎵 Music";
+    }
+}
+
+/* 🔗 URL Parameters 
+const params = new URLSearchParams(window.location.search);
+const urlName = params.get("name");
+let urlPhoto = params.get("photo");
+
+if (urlName) {
+    nameText.innerText = urlName;
+   // startConfetti();
+}
+
+if (urlPhoto) {
+    if (!urlPhoto.startsWith("http")) {
+        urlPhoto = "images/" + urlPhoto;
+    }
+    img.src = urlPhoto;
+    img.style.display = "block";
+} */
+
+    /* 🔗 LOAD CLIENT BY ID */
+const params = new URLSearchParams(window.location.search);
+const clientId = params.get("id");
+
+fetch("./clients.json")
+    .then(response => response.json())
+    .then(data => {
+        if (clientId && data[clientId]) {
+            const client = data[clientId];
+
+            nameText.innerText = client.name;
+
+            if (client.photo) {
+                img.src = "images/" + client.photo;
+                img.style.display = "block";
+            }
+        } else {
+            nameText.innerText = "Happy Birthday 🎉";
+        }
+    })
+    .catch(error => {
+        console.error("JSON load error", error);
+        nameText.innerText = "Happy Birthday 🎂";
+    });
+
+
+/* ▶️ Auto-play after first click */
+document.addEventListener("click", () => {
+    if (music.paused) music.play();
+}, { once: true });
+</script>
+
+</body>
+</html>
