@@ -9,34 +9,34 @@
 <title>Happy Birthday</title>
 
 <style>
+/* ===== PAGE BACKGROUND ===== */
 body {
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
     min-height: 100vh;
-
-    /* 🎨 Canva-style background */
-    background: radial-gradient(
-        circle at top right,
-        #fdebf2 0%,
-        #f6dce6 45%,
-        #f3cfe0 100%
-    );
 
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+
+    /* bg3.webp centered */
+    background-color: #e6e6e6; /* fallback */
+    background-image: url("images/bg3.webp");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+
+    font-family: 'Segoe UI', sans-serif;
 }
 
-/* container */
+/* ===== CONTENT CARD ===== */
 .container {
     text-align: center;
-    padding: 16px;
     width: 100%;
     max-width: 420px;
+    padding: 16px;
 }
 
-/* name */
+/* ===== NAME ===== */
 .name {
     font-family: 'Great Vibes', cursive;
     font-size: 2.6rem;
@@ -45,7 +45,7 @@ body {
     text-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
 
-/* image card */
+/* ===== PHOTO ===== */
 #customerPhoto {
     width: 100%;
     max-width: 400px;
@@ -57,7 +57,7 @@ body {
     box-shadow: 0 12px 30px rgba(0,0,0,0.18);
 }
 
-/* music button */
+/* ===== MUSIC BUTTON ===== */
 .music-btn {
     position: fixed;
     bottom: 18px;
@@ -90,7 +90,7 @@ const nameText = document.getElementById("nameText");
 const img = document.getElementById("customerPhoto");
 const music = document.getElementById("bgMusic");
 
-/* 🎵 music toggle */
+/* 🎵 Music toggle */
 function toggleMusic() {
     if (music.paused) {
         music.play();
@@ -101,11 +101,11 @@ function toggleMusic() {
     }
 }
 
-/* 🔗 get ID from URL */
+/* 🔗 Get ID from URL */
 const params = new URLSearchParams(window.location.search);
 const clientId = params.get("id");
 
-/* 📦 load JSON */
+/* 📦 Load client data */
 fetch("clients.json")
   .then(res => res.json())
   .then(data => {
@@ -117,7 +117,7 @@ fetch("clients.json")
   })
   .catch(err => console.error("JSON error:", err));
 
-/* ▶ autoplay after click */
+/* ▶ Auto play after user interaction */
 document.addEventListener("click", () => {
     if (music.paused) music.play();
 }, { once: true });
